@@ -1,0 +1,4 @@
+[submodule "sdk"]
+    path = sdk
+    url = https://git.sagetech.com/sa/sagetech-sdk/sagetech-sdk.git
+    branch = development/proto
