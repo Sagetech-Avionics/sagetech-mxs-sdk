@@ -1,0 +1,4 @@
+{
+    "sourceDirectories": ["util", "sdk"],
+    "includeLibraries": ["m"]
+}
