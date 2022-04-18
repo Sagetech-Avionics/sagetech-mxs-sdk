@@ -1,10 +1,10 @@
-[submodule "sdk"]
-	path = sdk
+[submodule "modules/sdk"]
+	path = modules/sdk
 	url = https://git.sagetech.com/sa/sagetech-sdk/sagetech-sdk.git
 	branch = development/proto
-[submodule "util"]
-	path = util
+[submodule "modules/util"]
+	path = modules/util
 	url = https://git.sagetech.com/sa/sagetech-sdk/sagetech-sdk-util.git
-[submodule "tests/sdk"]
-	path = tests/sdk
+[submodule "modules/test-sdk"]
+	path = modules/test-sdk
 	url = https://git.sagetech.com/sa/sagetech-sdk/sagetech-sdk-unit-test.git
