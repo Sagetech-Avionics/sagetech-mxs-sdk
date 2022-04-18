@@ -1,5 +1,0 @@
-{
-    "projectName": "sagetech-sdk-public",
-    "sourceDirectories": ["util", "sdk"],
-    "includeLibraries": ["m"]
-}
