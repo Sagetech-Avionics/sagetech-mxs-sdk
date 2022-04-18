@@ -1,1 +1,8 @@
-build/
+*
+!.gitignore
+# !cmwalk.json
+# !CMakeLists.txt
+# # !/sdk/*
+# !/util/
+# !/doc/*
+# !/tests/
