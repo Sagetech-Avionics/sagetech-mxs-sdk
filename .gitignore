@@ -1,8 +1,11 @@
-*
+/*
+!/README.md
 !.gitignore
-# !cmwalk.json
-# !CMakeLists.txt
-# # !/sdk/*
-# !/util/
-# !/doc/*
-# !/tests/
+!/cmwalk.json
+!/CMakeLists.txt
+!/sdk/
+!/util/
+!/doc/
+!/tests/
+!/tests/sdk
+!/tests/util
