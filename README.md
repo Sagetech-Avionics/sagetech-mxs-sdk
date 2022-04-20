@@ -4,7 +4,7 @@ This is a public release of the Sagetech SDK.
 ## Configure and Build
 The SDK can be cloned with:
 ```
-git clone https://github.com/Sagetech-Avionics/sagetech-sdk.git
+git clone https://github.com/Sagetech-Avionics/sagetech-mxs-sdk.git
 ```
 
 The SDK can be configured using the following commands for an x86 Linux environment.
