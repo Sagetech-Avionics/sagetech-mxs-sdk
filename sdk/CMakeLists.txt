@@ -15,6 +15,7 @@ target_sources(${CURRENT_LIB_NAME}
         ${CMAKE_CURRENT_LIST_DIR}/sgDecodeMSR.c
         ${CMAKE_CURRENT_LIST_DIR}/sgDecodeVersion.c
         ${CMAKE_CURRENT_LIST_DIR}/sgsDecodeDF0.c
+        ${CMAKE_CURRENT_LIST_DIR}/sagetech_mxs.h
         ${CMAKE_CURRENT_LIST_DIR}/sgEncodeFlightId.c
         ${CMAKE_CURRENT_LIST_DIR}/sgEncodeTargetReq.c
         ${CMAKE_CURRENT_LIST_DIR}/sgDecodeSerialNumber.c
