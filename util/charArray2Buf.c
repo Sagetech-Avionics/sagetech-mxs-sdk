@@ -9,41 +9,7 @@
  */
 
 #include "sgUtil.h"
-
-/**
- * given ASCII input determines whether input is a lower case value.
- *
- * @param[in] c  The character to test if it is a lower case character.
- *
- * @return true if lower case; false otherwise.
- *
- * @warning data in c parameter must be pre-validated (valid ASCII char).
- */
-
-static inline int islower(int c)
-{
-	if ((c >= 97) && (c <= 122))
-	{
-		return 1;
-	}
-	return 0;
-}
-
-/**
- * given ASCII input changes value to upper case unless upper case.
- *
- * @param[in] c  The character to switch to upper case if it is a lower
- *               case character.
- *
- * @return upper case ASCII.
- *
- * @warning data in c parameter must be pre-validated (valid ASCII char).
- */
-
-static inline int toupper(int c)
-{
-	return islower(c) ? c - 'a' + 'A' : c;
-}
+#include <ctype.h>
 
 /*
  * Documented in the header file.
