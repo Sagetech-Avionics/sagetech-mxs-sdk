@@ -8,7 +8,9 @@
  *      
  */
 
+#ifndef NDEBUG
 #include <assert.h>
+#endif
 #include <ctype.h>
 #include <stdbool.h>
 #include <stdlib.h>
@@ -24,6 +26,7 @@
 
 #define ID_LEN              8   /// the length of the flight identification field.
 
+#ifndef NDEBUG
 /**
  * Validate all input parameters prior to bufferizing data. Function is
  * used during development in debug mode, only.
@@ -58,14 +61,18 @@ static void checkIdInputs(sg_flightid_t *id)
          id->flightId[ID_LEN] == '\0' &&
          "The final flight id field character must be the null terminator");
 }
+#endif
+
 
 /*
  * Documented in the header file.
  */
 bool sgEncodeFlightId(uint8_t *buffer, sg_flightid_t *id, uint8_t msgId)
 {
+#ifndef NDEBUG
    // Validate all data inputs (debug mode, only)
    checkIdInputs(id);
+#endif
 
    // populate header
    buffer[0]       = SG_MSG_START_BYTE;

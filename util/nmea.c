@@ -6,7 +6,9 @@
  * @date Mar 25, 2022
  */
 
+#ifndef NDEBUG
 #include <assert.h>
+#endif
 #include <stddef.h>
 #include "nmea.h"
 
@@ -64,11 +66,13 @@ static bool convDeg(const char *str, uint8_t *degrees, uint8_t *minutes, float *
  */
 bool nmea2Lat(const char *str, float *deg)
 {
+#ifndef NDEBUG
    assert(str != NULL);
    assert(deg != NULL);
-
-   uint8_t degrees, minutes;
-   float   minFrac;
+#endif
+   uint8_t degrees = 0;
+   uint8_t minutes = 0;
+   float   minFrac = 0;
 
    if (!convDeg(str, &degrees, &minutes, &minFrac))
    {
@@ -95,11 +99,13 @@ bool nmea2Lat(const char *str, float *deg)
  */
 bool nmea2Lon(const char *str, float *deg)
 {
+#ifndef NDEBUG
    assert(str != NULL);
    assert(deg != NULL);
-
-   uint8_t degrees, minutes;
-   float   minFrac;
+#endif
+   uint8_t degrees = 0;
+   uint8_t minutes = 0;
+   float   minFrac = 0;
 
    if (!convDeg(str, &degrees, &minutes, &minFrac))
    {
@@ -111,13 +117,13 @@ bool nmea2Lon(const char *str, float *deg)
       return false;
    }
 
-   float lat = degrees + (((float) minutes + minFrac) / 60.0);
-   if (lat > 180.0)
+   float lon = degrees + (((float) minutes + minFrac) / 60.0);
+   if (lon > 180.0)
    {
       return false;
    }
 
-   *deg = lat;
+   *deg = lon;
    return true;
 }
 
@@ -126,8 +132,10 @@ bool nmea2Lon(const char *str, float *deg)
  */
 bool nmea2Float(const char *str, float *value)
 {
+#ifndef NDEBUG
    assert(str != NULL);
    assert(value != NULL);
+#endif
 
    const uint8_t *start = (const uint8_t *)str;
    const uint8_t *end;
@@ -189,8 +197,10 @@ bool nmea2Float(const char *str, float *value)
  */
 bool nmea2Int(const char *str, int *value)
 {
+#ifndef NDEBUG
    assert(str != NULL);
    assert(value != NULL);
+#endif
 
    const uint8_t *start = (const uint8_t *)str;
    const uint8_t *end;

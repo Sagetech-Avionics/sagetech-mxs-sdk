@@ -10,11 +10,12 @@
 
 #include <string.h>
 #include <stdbool.h>
+#include <stdio.h>
 
 #include "sg.h"
 #include "sgUtil.h"
 
-#define SG_REG_LEN    7     // The number of bytes in the registration field
+#define SG_REG_LEN    8     // The number of bytes in the registration field
 
 #define SG_STL_ANTENNA      0x03
 #define SG_STL_ALT_RES      0x08
@@ -56,11 +57,12 @@ bool sgDecodeInstall(uint8_t *buffer, sg_install_t *stl)
 {
    memset(&stl->reg[0], '\0', sizeof(stl->reg));  // Ensure registration is null-terminated
 
+
    stl_t sgStl;
    memcpy(&sgStl, buffer, sizeof(stl_t));
 
    stl->icao           = toIcao(sgStl.icao);
-   strcpy(stl->reg,      sgStl.registration);
+   strncpy(stl->reg, sgStl.registration, SG_REG_LEN);
    memset(&stl->reg[SG_REG_LEN], 0, 1);  // Ensure registration is null-terminated
    stl->com0           = (sg_baud_t)(sgStl.com0);
    stl->com1           = (sg_baud_t)(sgStl.com1);

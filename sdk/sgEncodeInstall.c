@@ -10,7 +10,9 @@
  * converts it into a installation message buffer.
  */
 
+#ifndef NDEBUG
 #include <assert.h>
+#endif
 #include <ctype.h>
 #include <string.h>
 #include <stdbool.h>
@@ -41,6 +43,7 @@
 
 #define REG_LEN              7  /// the registration field length.
 
+#ifndef NDEBUG
 /**
  * Validate all input parameters prior to bufferizing data. Function is
  * used during development in debug mode, only.
@@ -122,14 +125,17 @@ static void checkInstallInputs(sg_install_t *stl)
 
    // Boolean values are not verified
 }
+#endif
 
 /*
  * Documented in the header file.
  */
 bool sgEncodeInstall(uint8_t *buffer, sg_install_t *stl, uint8_t msgId)
 {
+#ifndef NDEBUG
    // Validate all data inputs (debug mode, only)
    checkInstallInputs(stl);
+#endif
 
    // populate header
    buffer[0]       = SG_MSG_START_BYTE;

@@ -10,7 +10,9 @@
  * converts it into a target request message buffer.
  */
 
+#ifndef NDEBUG
 #include <assert.h>
+#endif
 #include <stdbool.h>
 #include <stdlib.h>
 
@@ -26,6 +28,7 @@
 #define OFFSET_ICAO           3   /// the requested target icao offset
 #define OFFSET_REPORTS        6   /// the requested report type offset
 
+#ifndef NDEBUG
 /**
  * Validate all input parameters prior to bufferizing data. Function is
  * used during development in debug mode, only.
@@ -52,14 +55,17 @@ static void checkTargetReqInputs(sg_targetreq_t *tgt)
          tgt->icao <= 0xFFFFFF &&
          "Target ICAO value is out of range");
 }
+#endif
 
 /*
  * Documented in the header file.
  */
 bool sgEncodeTargetReq(uint8_t *buffer, sg_targetreq_t *tgt, uint8_t msgId)
 {
+#ifndef NDEBUG
    // Validate all data inputs (debug mode, only)
    checkTargetReqInputs(tgt);
+#endif
 
    // populate header
    buffer[0]       = SG_MSG_START_BYTE;

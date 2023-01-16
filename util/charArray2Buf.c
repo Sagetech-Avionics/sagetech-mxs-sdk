@@ -20,7 +20,7 @@
  * @warning data in c parameter must be pre-validated (valid ASCII char).
  */
 
-static inline int islower(int c)
+static inline int isLower(int c)
 {
 	if ((c >= 97) && (c <= 122))
 	{
@@ -40,10 +40,11 @@ static inline int islower(int c)
  * @warning data in c parameter must be pre-validated (valid ASCII char).
  */
 
-static inline int toupper(int c)
+static inline int toUpper(int c)
 {
-	return islower(c) ? c - 'a' + 'A' : c;
+	return isLower(c) ? c - 'a' + 'A' : c;
 }
+
 
 /*
  * Documented in the header file.
@@ -52,6 +53,6 @@ void charArray2Buf(uint8_t *bufferPos, char arr[], uint8_t len)
 {
    for (uint8_t i = 0; i < len; ++i)
    {
-      bufferPos[i] = toupper(arr[i]);
+      bufferPos[i] = toUpper(arr[i]);
    }
 }

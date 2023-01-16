@@ -10,7 +10,9 @@
  * converts it into a operating message buffer.
  */
 
+#ifndef NDEBUG
 #include <assert.h>
+#endif
 #include <stdbool.h>
 #include <stdlib.h>
 
@@ -28,6 +30,7 @@
 #define OFFSET_HEADING        8   /// the heading offset in the payload.
 #define OFFSET_AIRSPEED       10  /// the airspeed offset in the payload.
 
+#ifndef NDEBUG
 /**
  * Validate all input parameters prior to bufferizing data. Function is
  * used during development in debug mode, only.
@@ -66,14 +69,17 @@ static void checkOpInputs(sg_operating_t *op)
          op->airspd <= 0x7FFF &&
          "Airspeed is greater than 0x7FFF");
 }
+#endif
 
 /*
  * Documented in the header file.
  */
 bool sgEncodeOperating(uint8_t *buffer, sg_operating_t *op, uint8_t msgId)
 {
+#ifndef NDEBUG
    // Validate all data inputs (debug mode, only)
    checkOpInputs(op);
+#endif
 
    // populate header
    buffer[0]       = SG_MSG_START_BYTE;
