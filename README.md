@@ -26,3 +26,4 @@ Then run the following to build:
 cd build
 make
 ```
+v1.0 tagged Jan 16th 2023 posted by Riley Barnes

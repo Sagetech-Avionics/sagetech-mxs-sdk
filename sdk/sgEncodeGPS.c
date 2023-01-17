@@ -10,14 +10,16 @@
  * converts it into a GPS message buffer.
  */
 
-
+#ifndef NDEBUG
 #include <assert.h>
+#endif
 #include <stdbool.h>
 #include <stdlib.h>
 
 #include "sg.h"
 #include "sgUtil.h"
 
+#define _UNUSED(x) ((void)(x))
 #define SG_PAYLOAD_LEN_GPS  SG_MSG_LEN_GPS - 5  /// the payload length.
 
 #define PBASE                    4   /// the payload offset.
@@ -39,6 +41,7 @@
 #define LEN_TRK                  8   /// bytes in the ground track field
 #define LEN_TIME                10   /// bytes in the time of fix field
 
+#ifndef NDEBUG
 /**
  * Validate all input parameters prior to bufferizing data. Function is
  * used during development in debug mode, only.
@@ -98,6 +101,7 @@ static void checkGPSInputs(sg_gps_t *gps)
    }
    assert(spdDecimal == true &&
           "Use a period in ground speed to signify the start of fractional knots.");
+    _UNUSED(spdDecimal);
 
    // Validate ground track
    for (int i = 0; i < LEN_TRK; ++i)
@@ -162,14 +166,17 @@ static void checkGPSInputs(sg_gps_t *gps)
    assert(nacvUnknown <= gps->nacv && gps->nacv <= nacv0dot3 &&
           "NACv is not an enumerated value");
 }
+#endif
 
 /*
  * Documented in the header file.
  */
 bool sgEncodeGPS(uint8_t *buffer, sg_gps_t *gps, uint8_t msgId)
 {
+#ifndef NDEBUG
    // Validate all data inputs (debug mode, only)
    checkGPSInputs(gps);
+#endif
 
    // populate header
    buffer[0]       = SG_MSG_START_BYTE;

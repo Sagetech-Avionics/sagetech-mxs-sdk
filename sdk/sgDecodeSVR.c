@@ -15,6 +15,7 @@
 #include <string.h>
 #include <math.h>
 
+
 #include "sg.h"
 #include "sgUtil.h"
 #include "target.h"
@@ -59,6 +60,7 @@ bool sgDecodeSVR(uint8_t *buffer, sg_svr_t *svr)
    svr->eflags   = buffer[PBASE + 4];
    svr->addr     = toInt32(&buffer[PBASE + 5]) & 0xFFFFFF;
    svr->addrType = buffer[PBASE + 8] &0xFF;
+
 
    uint8_t ofs = 9;
 
@@ -167,7 +169,9 @@ bool sgDecodeSVR(uint8_t *buffer, sg_svr_t *svr)
       {
          if (svr->validity.surfSpeed)
          {
+
             svr->surface.speed = toGS(&buffer[PBASE + ofs]);
+
          }
          else
          {
@@ -226,10 +230,11 @@ bool sgDecodeSVR(uint8_t *buffer, sg_svr_t *svr)
 
       ofs += 3;
    }
-
    if (fields[2] & SV_PARAM_SURV)
    {
+
       svr->survStatus = buffer[PBASE + ofs];
+
       ofs += 1;
    }
 

@@ -46,6 +46,7 @@
 #define SG_MSG_TYPE_XPNDR_STATUS       0x83
 #define SG_MSG_TYPE_XPNDR_COMMA        0x85
 #define SG_MSG_TYPE_XPNDR_MODE         0x8C
+#define SG_MSG_TYPE_XPNDR_TEMP         0x8D
 #define SG_MSG_TYPE_XPNDR_VERSION      0x8E
 #define SG_MSG_TYPE_XPNDR_SERIALNUM    0x8F
 
@@ -823,6 +824,67 @@ typedef struct
 } sg_msr_t;
 
 /**
+ * Available transponder operating modes. The enumerated values are
+ * offset from the host message protocol values.
+ */
+typedef enum
+{
+   mOff = 0,  /// 'Off' Mode:     Xpdr will not transmit
+   mOn,       /// 'On' Mode:      Full functionality with Altitude = Invalid
+   mStby,     /// 'Standby' Mode: Reply to lethal interrogations, only
+   mAlt       /// 'Alt' Mode:     Full functionality
+} op_mode_struct;
+
+/**
+ * Available emergency status codes.
+ */
+typedef enum
+{
+   emNone = 0,  /// No Emergency
+   emGeneral,   /// General Emergency
+   emMed,       /// Lifeguard/Medical Emergency
+   emFuel,      /// Minimum Fuel
+   emComm,      /// No Communications
+   emIntrfrc,   /// Unlawful Interference
+   emDowned     /// Downed Aircraft
+} emergency_struct;
+
+/**
+ * The XPNDR Operating Message.
+ * Host --> XPNDR.
+ */
+typedef struct
+{
+   uint16_t     squawk;       /// 4-digit octal Mode A code
+   op_mode_struct opMode;       /// Operational mode
+   bool         savePowerUp;  /// Save power-up state in non-volatile
+   bool         enableSqt;    /// Enable extended squitters
+   bool         enableXBit;   /// Enable the x-bit
+   bool         milEmergency; /// Broadcast a military emergency
+   emergency_struct  emergcType;   /// Enumerated civilian emergency type
+   bool         identOn;      /// Set the identification switch = On
+   bool         altUseIntrnl; /// True = Report altitude from internal pressure sensor (will ignore other bits in the field)
+   bool         altHostAvlbl; /// True = Host Altitude is being provided
+   int32_t      altitude;     /// Sea-level altitude in feet. Field is ignored when internal altitude is selected.
+   bool         climbValid;   /// Climb rate is provided;
+   int16_t      climbRate;    /// Climb rate in ft/min. Limits are +/- 16,448 ft/min.
+   bool         headingValid; /// Heading is valid.
+   double       heading;      /// Heading in degrees
+   bool         airspdValid;  /// Airspeed is valid.
+   uint16_t     airspd;       /// Airspeed in knots.
+} operating_struct;
+
+/**
+ * Process the Operating message response from the transponder.
+ *
+ * @param[in]  buffer The raw Operating message buffer.
+ * @param[out] stl    The parsed message results.
+ *
+ * @return true if successful or false on failure.
+ */
+bool sgDecodeOperating(uint8_t *buffer, operating_struct *stl);
+
+/**
  * Convert install message struct to the raw buffer format.
  * 
  * @param[out] buffer An empty buffer to contain the raw install message.
@@ -1004,6 +1066,34 @@ bool sgDecodeSVR(uint8_t *buffer, sg_svr_t *svr);
  * @return true if successful or false on failure.
  */
 bool sgDecodeMSR(uint8_t *buffer, sg_msr_t *msr);
+
+
+/**
+ * Convert State Vector Report message struct to the raw buffer format.
+ *
+ * @param[out] buffer An empty buffer to contain the raw mode message.
+ * @param[in]  svr   The mode message struct with fields populated.
+ * @param[in]  msgId  The sequence number for the message.
+ *
+ * @return true if successful or false on failure.
+ *
+ * @warning data in svr parameter must be pre-validated.
+ */
+bool sgEncodeSVR(uint8_t *buffer, sg_svr_t *svr, uint8_t msgId);
+
+/**
+ * Convert Mode Status Vector Report message struct to the raw buffer format.
+ *
+ * @param[out] buffer An empty buffer to contain the raw mode message.
+ * @param[in]  msr   The mode message struct with fields populated.
+ * @param[in]  msgId  The sequence number for the message.
+ *
+ * @return true if successful or false on failure.
+ *
+ * @warning data in svr parameter must be pre-validated.
+ */
+bool sgEncodeMSR(uint8_t *buffer, sg_msr_t *svr, uint8_t msgId);
+
 
 #endif	/* SG_H */
 

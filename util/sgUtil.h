@@ -304,5 +304,58 @@ uint8_t calcChecksum(uint8_t *buffer, uint8_t len);
  */
 void appendChecksum(uint8_t *buffer, uint8_t len);
 
+
+/**
+ * convert a toa into an encoded 2 byte buffer format.
+ *
+ * @param bufferPos The address of the field's first corresponding buffer byte
+ * @param value float value to be converted
+ *
+ * no return value, 2 buffer bytes are filled by reference.
+ */
+void toa2Buf(uint8_t *bufferPos, float value);
+
+/**
+ * convert altitude to encoded buffer format.
+ *
+ * @param bufferPos The address of the field's first corresponding buffer byte
+ * @param value uint32 value to be converted
+ *
+ * no return value, 3 buffer bytes are filled by reference.
+ */
+void alt2Buf(uint8_t *bufferPos, uint32_t value);
+
+/**
+ * convert ground speed to encoded buffer format.
+ *
+ * @param bufferPos the address of the field's first corresponding buffer byte
+ * @param value uint16 value to be converted
+ * @param mov movement type 0-4
+ *
+ * no return value, 1 buffer byte filled by reference.
+ */
+void gs2Buf(uint8_t *bufferPos, int16_t value, int mov);
+
+/**
+ * convert ground heading to encoded buffer format.
+ *
+ * @param bufferPos the address ofo the field's first corresponding buffer byte
+ * @param value uint16 value to be converted
+ *
+ * no return value, 1 buffer byte filled by reference.
+ */
+void heading2Buf(uint8_t *bufferPos, uint16_t value);
+
+/**
+ * convert N/S or E/W velocity to encoded buffer format
+ *
+ * @param bufferPos the address of the field's first corresponding buffer byte
+ * @param value int16 balue to be converted
+ *
+ * no return value, 2 buffer bytes are filled by reference.
+ */
+void vel2Buf(uint8_t *bufferPos, uint16_t value);
+
+
 #endif	/* UTIL_H */
 

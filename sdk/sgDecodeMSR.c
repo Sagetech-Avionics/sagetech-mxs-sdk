@@ -99,6 +99,7 @@ bool sgDecodeMSR(uint8_t *buffer, sg_msr_t *msr)
 
    if (fields[0] & MS_PARAM_CALLSIGN)
    {
+
       memset(msr->callsign, 0, 9);
       memcpy(msr->callsign, &buffer[PBASE + ofs], 8);
       ofs += 8;

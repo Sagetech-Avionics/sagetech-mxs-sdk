@@ -10,7 +10,9 @@
  * converts it into a data request message buffer.
  */
 
+#ifndef NDEBUG
 #include <assert.h>
+#endif
 #include <stdbool.h>
 #include <stdlib.h>
 
@@ -26,6 +28,7 @@
 #define OFFSET_RSVD_2         2   /// a reserved field
 #define OFFSET_RSVD_3         3   /// a reserved field
 
+#ifndef NDEBUG
 /**
  * Validate all input parameters prior to bufferizing data. Function is
  * used during development in debug mode, only.
@@ -45,14 +48,17 @@ static void checkDataReqInputs(sg_datareq_t *data)
          data->reqType == dataMilSettings) &&
          "Selected report type is not an enumerated value");
 }
+#endif
 
 /*
  * Documented in the header file.
  */
 bool sgEncodeDataReq(uint8_t *buffer, sg_datareq_t *data, uint8_t msgId)
 {
+#ifndef NDEBUG
    // Validate all data inputs (debug mode, only)
    checkDataReqInputs(data);
+#endif
 
    // populate header
    buffer[0]       = SG_MSG_START_BYTE;
