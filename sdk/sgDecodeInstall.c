@@ -15,7 +15,7 @@
 #include "sg.h"
 #include "sgUtil.h"
 
-#define SG_REG_LEN    8     // The number of bytes in the registration field
+#define SG_REG_LEN    7     // The number of bytes in the registration field
 
 #define SG_STL_ANTENNA      0x03
 #define SG_STL_ALT_RES      0x08
