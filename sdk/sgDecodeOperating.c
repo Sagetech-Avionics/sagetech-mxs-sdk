@@ -72,7 +72,7 @@ bool sgDecodeOperating(uint8_t *buffer, operating_struct *stl)
    stl->altitude       = toInt16(sgStl.altitude) & 0x3fff; // Bit 13-0 of Altitude field
 
    // Altitude Rate
-   stl->climbValid     = (toInt16(sgStl.altitudeRate) == 0x8000) ? 0 : 1; // If alt rate = 0x8000, then alt rate is not available
+   stl->climbValid     = ((uint16_t)toInt16(sgStl.altitudeRate) == 0x8000) ? 0 : 1; // If alt rate = 0x8000, then alt rate is not available
    stl->climbRate      = toInt16(sgStl.altitudeRate) & 0xffff; // Bit 15-0 of Altitude Rate field
 
    // Heading
