@@ -111,11 +111,11 @@ bool sgEncodeOperating(uint8_t *buffer, sg_operating_t *op, uint8_t msgId)
    {
       if (op->altRes25)
       {
-         altCode = (op->altitude + 1200) / 25
+         altCode = (op->altitude + 1200) / 25;
       }
       else
       {
-         altCode = (op->altitude + 1200) / 100
+         altCode = (op->altitude + 1200) / 100;
       }
       // 'Host altitude available' flag
       altCode += 0x4000;
