@@ -11,7 +11,7 @@
 
 #include "sg.h"
 #include <string.h>
-#include <sgUtil.h> // remember to switch this back to "
+#include "sgUtil.h"
 
 
 
