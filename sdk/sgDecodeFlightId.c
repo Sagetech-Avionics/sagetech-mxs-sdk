@@ -34,8 +34,11 @@ bool sgDecodeFlightId(uint8_t *buffer, sg_flightid_t *id)
    flightid_t sgId;
    memcpy(&sgId, buffer, sizeof(flightid_t));
 
-   strcpy(id->flightId, sgId.flightId);
-   memset(&id->flightId[SG_ID_LEN], '\0', 1);  // Ensure flight id is null-terminated
+   // flightId is a fixed-width field padded with spaces, not a C string. strcpy() reads
+   // until it finds a zero byte, so it runs past the field into rsvd, checksum and off the
+   // end of sgId, overflowing the smaller destination on the way.
+   memcpy(id->flightId, sgId.flightId, SG_ID_LEN);
+   id->flightId[SG_ID_LEN] = '\0';  // Ensure flight id is null-terminated
 
    return true;
 }
